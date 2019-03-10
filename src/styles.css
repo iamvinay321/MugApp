@@ -1,0 +1,12 @@
+
+@import "assets/style.css";
+@import "assets/css/style.css";
+@import "assets/css/responsiveslides.css";
+ul {
+    list-style: none;
+}
+div#languages a:first-child {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+    margin-right: 10px;
+}
