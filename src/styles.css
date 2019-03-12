@@ -19,3 +19,7 @@ div#languages a:first-child {
     font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
     color: #000;
 }
+.skin-blue .main-header .navbar .nav>li>a {
+    color: #fff;
+    text-transform: capitalize;
+}

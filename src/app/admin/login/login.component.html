@@ -4,7 +4,7 @@
             <a routerLink="/login"><b>Admin</b>LTE</a>
         </div>
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg" i18n="@@loginTitle">Sign in to start your session</p>
             <form method="post">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" placeholder="Email" />
@@ -18,16 +18,17 @@
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox"> Remember Me
+                                <input type="checkbox" i18n="@@rememberMe"> Remember Me
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="button" (click)="login()" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="button" (click)="login()" class="btn btn-primary btn-block btn-flat" i18n="@@signIn">Sign
+                            In</button>
                     </div>
                 </div>
             </form>
-            <a href="#">I forgot my password</a><br>
+            <a href="#" i18n="@@forgotPassword">I forgot my password</a><br>
 
         </div>
     </div>

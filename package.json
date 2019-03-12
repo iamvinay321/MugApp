@@ -10,10 +10,10 @@
     "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint brief-ammos",
-    "build:client-and-server-bundles-i18n": "ng run brief-ammos:build:production-fr && sw-precache --root=dist --config=precache-config.js && ng run brief-ammos:build:production-en && ng run brief-ammos:server:production --missing-translation=ignore",
+    "build:client-and-server-bundles-i18n": "ng run brief-ammos:build:production-fr && sw-precache --root=dist --config=precache-config.js && ng run brief-ammos:build:production-en && ng run brief-ammos:server:production ",
     "build:client-and-server-bundles": "ng build --prod && sw-precache --root=dist --config=precache-config.js && ng run brief-ammos:server:production",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
-    "build:i18n-ssr": "npm run build:client-and-server-bundles-i18n && npm run compile:server --missing-translation=ignore",
+    "build:i18n-ssr": "npm run build:client-and-server-bundles-i18n && npm run compile:server ",
     "compile:server": "tsc -p server.tsconfig.json",
     "serve:ssr": "node dist/server"
   },

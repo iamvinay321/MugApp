@@ -22,13 +22,19 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
-
+    let data: any = this.router;
+    console.log();
     this.translateService.addLangs(['en', 'fr']);
     this.translateService.setDefaultLang('en');
 
     const browserLang = this.translateService.getBrowserLang();
-    console.log(browserLang);
-    this.translateService.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    let browserLanguage = "en";
+    if (data.location._baseHref.substring(1) != "") {
+      browserLanguage = data.location._baseHref.substring(1);
+    } else {
+      browserLanguage = "en";
+    }
+    this.translateService.use(browserLanguage);
 
     this.translateService.get(['cookie.header', 'cookie.message', 'cookie.dismiss', 'cookie.allow', 'cookie.deny', 'cookie.link', 'cookie.policy'])
       .subscribe(data => {

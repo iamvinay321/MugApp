@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 export class ContainerComponent implements OnInit {
   locales = [];
   currentUrl = "";
+  selectCode = "En";
   constructor(@Inject(LOCALE_ID) public locale: string, public router: Router) { }
 
   ngOnInit() {
@@ -21,6 +22,17 @@ export class ContainerComponent implements OnInit {
         this.currentUrl = this.router.url;
       });
     this.currentUrl = this.router.url;
+    let data: any = this.router;
+    this.selectCode = "en";
+    if (data.location._baseHref.substring(1) != "") {
+      this.selectCode = data.location._baseHref.substring(1);
+    } else {
+      this.selectCode = "en";
+    }
+  }
+
+  selectedCode(code) {
+    this.selectCode = code;
   }
 
   logoutApp() {

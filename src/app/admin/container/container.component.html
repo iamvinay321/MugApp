@@ -8,21 +8,22 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                                En
+                                {{selectCode}}
                             </a>
                             <ul class="dropdown-menu">
-                                <li *ngFor="let locale of locales" class="footer"><a [href]="'/' + locale.code + currentUrl">{{
+                                <li *ngFor="let locale of locales" class="footer"><a (click)="selectedCode(locale.code)"
+                                        [href]="'/' + locale.code + currentUrl">{{
                                         locale.text }}</a></li>
                             </ul>
                         </li>
                         <li class="dropdown user user-menu">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image" />
+                                <img src="assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image" />
                                 <span class="hidden-xs">Alexander Pierce</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                    <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
                                     <p>
                                         Alexander Pierce
                                     </p>
