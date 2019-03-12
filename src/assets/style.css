@@ -48,8 +48,7 @@
 img{
 	user-select:none;
 }
-
-body{
+.home{
 	background-color: #000;
 	font-family: Roboto;
 	font-size: 14px;
@@ -61,8 +60,9 @@ body{
 	text-rendering: optimizeLegibility;
 	backface-visibility: hidden;
 	background-attachment: fixed;
-
-
+}
+body{
+	    background: #d2d6de;
 }
 h1, h2, h3, h4, h5, h6 {
 	font-size: 20px;

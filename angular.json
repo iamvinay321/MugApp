@@ -34,6 +34,8 @@
             ],
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js",
+              "src/assets/bootstrap/js/bootstrap.min.js",
+              "src/assets/plugin/iCheck/icheck.min.js",
               "src/assets/js/script.js",
               "src/assets/js/prefixfree.min.js",
               "src/assets/js/modernizr.custom.js",
@@ -124,8 +126,8 @@
             "production": {
               "browserTarget": "brief-ammos:build:production"
             },
-            "es": {
-              "browserTarget": "brief-ammos:build:production-es"
+            "fr": {
+              "browserTarget": "brief-ammos:build:production-fr"
             },
             "en": {
               "browserTarget": "brief-ammos:build:production-en"

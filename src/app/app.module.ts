@@ -16,10 +16,36 @@ import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsen
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LoginComponent } from './admin/login/login.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { ContainerComponent } from './admin/container/container.component';
+import { SubscribersComponent } from './admin/subscribers/subscribers.component';
+import { SeoInformationComponent } from './admin/seo-information/seo-information.component';
+import { ProductMenuComponent } from './admin/product-menu/product-menu.component';
+import { NavigationMenuComponent } from './admin/navigation-menu/navigation-menu.component';
+import { ContentPagesComponent } from './admin/content-pages/content-pages.component';
+import { ContactComponent } from './admin/contact/contact.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/', '.json');
 }
+const route: any = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'admin', component: ContainerComponent, children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'product', component: ProductMenuComponent },
+      { path: 'navigation', component: NavigationMenuComponent },
+      { path: 'content', component: ContentPagesComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'seo', component: SeoInformationComponent },
+      { path: 'subscribers', component: SubscribersComponent },
+    ]
+  },
+  { path: '**', component: PageNotFoundComponent }
+]
+
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
     domain: 'localhost'
@@ -41,15 +67,21 @@ const cookieConfig: NgcCookieConsentConfig = {
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ScrollToDirective
+    ScrollToDirective,
+    LoginComponent,
+    DashboardComponent,
+    ContainerComponent,
+    SubscribersComponent,
+    SeoInformationComponent,
+    ProductMenuComponent,
+    NavigationMenuComponent,
+    ContentPagesComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'brief-ammos' }),
     NgcCookieConsentModule.forRoot(cookieConfig),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: '**', component: PageNotFoundComponent }
-    ]),
+    RouterModule.forRoot(route),
     TransferHttpCacheModule,
     BrowserAnimationsModule,
     MatToolbarModule,

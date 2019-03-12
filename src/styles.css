@@ -1,7 +1,12 @@
 
+@import "assets/bootstrap/css/bootstrap.css";
+@import "assets/dist/css/AdminLTE.min.css";
+@import "assets/plugin/iCheck/square/blue.css";
+@import "assets/dist/css/skins/_all-skins.min.css";
 @import "assets/style.css";
 @import "assets/css/style.css";
 @import "assets/css/responsiveslides.css";
+
 ul {
     list-style: none;
 }
@@ -9,4 +14,8 @@ div#languages a:first-child {
     border-right: 1px solid #fff;
     padding-right: 10px;
     margin-right: 10px;
+}
+.container-admin,section.content-header h1, .box-header.with-border h3{
+    font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif !important;
+    color: #000;
 }
