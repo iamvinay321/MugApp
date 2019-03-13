@@ -25,7 +25,9 @@ import { ProductMenuComponent } from './admin/product-menu/product-menu.componen
 import { NavigationMenuComponent } from './admin/navigation-menu/navigation-menu.component';
 import { ContentPagesComponent } from './admin/content-pages/content-pages.component';
 import { ContactComponent } from './admin/contact/contact.component';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/components/common/messageservice';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/', '.json');
 }
@@ -76,7 +78,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     ProductMenuComponent,
     NavigationMenuComponent,
     ContentPagesComponent,
-    ContactComponent
+    ContactComponent,
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'brief-ammos' }),
@@ -86,6 +89,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
+    ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MatListModule,
     NgxPageScrollModule,
@@ -96,9 +101,10 @@ const cookieConfig: NgcCookieConsentConfig = {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

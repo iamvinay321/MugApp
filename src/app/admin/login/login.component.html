@@ -1,34 +1,43 @@
+<p-toast></p-toast>
 <div class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a routerLink="/login"><b>Admin</b>LTE</a>
+            <a routerLink="/login"><b>Brief</b> AMMOS</a>
         </div>
         <div class="login-box-body">
             <p class="login-box-msg" i18n="@@loginTitle">Sign in to start your session</p>
-            <form method="post">
+            <form [formGroup]="loginFormForAdmin">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Email" />
+                    <input type="text" class="form-control" placeholder="Email" formControlName="username" name="username" />
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <div *ngFor="let validation of validationMessages.username">
+                        <div class="input-group mb-3 error error-message" *ngIf="hasValidationError(validation, 'username', loginFormForAdmin)">{{validation.message}}</div>
+                    </div>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password" />
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                        (keypress)="onKeyPressLogin($event)" />
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <div *ngFor="let validation of validationMessages.password">
+                        <div class="input-group mb-3 error error-message" *ngIf="hasValidationError(validation, 'password', loginFormForAdmin)">{{validation.message}}</div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox" i18n="@@rememberMe"> Remember Me
+                                <input type="checkbox" i18n="@@rememberMe" formControlName="rememberme"> Remember Me
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="button" (click)="login()" class="btn btn-primary btn-block btn-flat" i18n="@@signIn">Sign
+                        <button type="button" (click)="login(loginFormForAdmin)" class="btn btn-primary btn-block btn-flat"
+                            i18n="@@signIn">Sign
                             In</button>
                     </div>
                 </div>
             </form>
-            <a href="#" i18n="@@forgotPassword">I forgot my password</a><br>
+            <a href="javascript:;" i18n="@@forgotPassword">I forgot my password</a><br>
 
         </div>
     </div>
