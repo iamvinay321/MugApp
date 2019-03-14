@@ -29,3 +29,7 @@ div#languages a:first-child {
 .error {
     color: red;
 }
+.listing ul {
+    height: auto;
+    padding: 0px;
+}
