@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './404/404.component';
@@ -33,11 +33,13 @@ import { GridcolumnComponent } from './tools/gridcolumn/gridcolumn.component';
 import { ProductTypeComponent } from './admin/product-type/product-type.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/', '.json');
 }
-const route: any = [
-  { path: '', component: HomeComponent },
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin', component: ContainerComponent, children: [
@@ -92,7 +94,7 @@ const cookieConfig: NgcCookieConsentConfig = {
   imports: [
     BrowserModule.withServerTransition({ appId: 'brief-ammos' }),
     NgcCookieConsentModule.forRoot(cookieConfig),
-    RouterModule.forRoot(route),
+    RouterModule.forRoot(routes),
     TransferHttpCacheModule,
     BrowserAnimationsModule,
     MatToolbarModule,

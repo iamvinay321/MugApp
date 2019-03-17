@@ -9,15 +9,168 @@
 </section>
 
 <section class="content">
-    <div class="box">
+    <div class="box" *ngIf="isEdit == false">
         <div class="box-header with-border">
             <h3 class="box-title" i18n="@@productMenu">Product Menu</h3>
+            <div class="pull-right box-tools">
+                <button class="btn btn-info btn-sm" (click)="addButton()"><i class="fa fa-plus"></i> Add </button>
+            </div>
         </div>
         <div class="box-body">
-            Start creating your amazing application!
+            <app-grid [dataset]=productMenus [rows]=totalRows (handler)="handleGridEvent($event)" [searchText]="'Search Product Type Name'">
+                <app-gridcolumn [width]="'20%'" [value]="'producttypes.productTypeEnglishName'" [header]="'Product Type English Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'20%'" [value]="'producttypes.productTypeFrenchName'" [header]="'Product Type French Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'20%'" [value]="'productmenus.productEnglishName'" [header]="'Product English Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'20%'" [value]="'productmenus.productFranchName'" [header]="'Product French Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'10%'" [value]="price" [header]="'Product Price'" [sorting]="false" [type]="'template'">
+                    <ng-template #price let-col="col" let-row="row">
+                        {{getCurrency(row.productmenus.productPrice)}}
+                    </ng-template>
+                </app-gridcolumn>
+
+                <app-gridcolumn [width]="'10%'" [value]="action" [header]="'Action'" [sorting]="false" [type]="'template'">
+                    <ng-template #action let-col="col" let-row="row">
+                        <button class="btn btn-info btn-sm" (click)="editProduct(row)"><i class="fa fa-pencil"></i></button>&nbsp;
+                        <button class="btn btn-info btn-sm" (click)="deleteProduct(row)"><i class="fa fa-trash"></i></button>
+                    </ng-template>
+                </app-gridcolumn>
+            </app-grid>
         </div>
-        <div class="box-footer">
-            Footer
+
+    </div>
+    <div class="box" *ngIf="isEdit == true">
+
+        <div class="box-header with-border">
+            <h3 class="box-title" i18n="@@productMenu">Add Product Menu</h3>
+            <div class="pull-right box-tools">
+                <button class="btn btn-info btn-sm" (click)="backButton()"><i class="fa fa-back"></i> Back </button>
+            </div>
         </div>
+        <form name="form" (ngSubmit)="f.form.valid && addProduct()" #f="ngForm" novalidate>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productEnglishName">Product English Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="productMenu.productEnglishName"
+                                required minlength="2" id="productEnglishName" name="productEnglishName" placeholder="Product English Name"
+                                #productEnglishName="ngModel">
+                            <div *ngIf="productEnglishName.invalid && (productEnglishName.dirty || productEnglishName.touched)"
+                                class="error">
+                                <div *ngIf="productEnglishName.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productEnglishName.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productFranchName">Product French Name</label>
+                            <input required minlength="2" type="text" class="form-control" [(ngModel)]="productMenu.productFranchName"
+                                id="productFranchName" #productFranchName="ngModel" name="productFranchName"
+                                placeholder="Product French Name">
+                            <div *ngIf="productFranchName.invalid && (productFranchName.dirty || productFranchName.touched)"
+                                class="error">
+                                <div *ngIf="productFranchName.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productFranchName.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productEnglishDescription">Product English Description</label>
+                            <textarea class="form-control" [(ngModel)]="productMenu.productEnglishDescription" required
+                                minlength="2" id="productEnglishDescription" name="productEnglishDescription"
+                                placeholder="Product English Description" #productEnglishDescription="ngModel"></textarea>
+                            <div *ngIf="productEnglishDescription.invalid && (productEnglishDescription.dirty || productEnglishDescription.touched)"
+                                class="error">
+                                <div *ngIf="productEnglishDescription.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productEnglishDescription.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productFranchDescription">Product French Description</label>
+                            <textarea class="form-control" [(ngModel)]="productMenu.productFranchDescription" required
+                                minlength="2" id="productFranchDescription" name="productFranchDescription" placeholder="Product French Description"
+                                #productFranchDescription="ngModel"></textarea>
+                            <div *ngIf="productFranchDescription.invalid && (productFranchDescription.dirty || productFranchDescription.touched)"
+                                class="error">
+                                <div *ngIf="productFranchDescription.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productFranchDescription.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productType">Product Type</label>
+                            <select required class="form-control" [(ngModel)]="productMenu.productType" id="productType"
+                                #productType="ngModel" name="productType" placeholder="Select Product Type">
+                                <option value="">Select</option>
+                                <option [value]="item._id" *ngFor="let item of productTypes">{{item.productTypeEnglishName}}
+                                    - {{item.productTypeFrenchName}}</option>
+                            </select>
+                            <div *ngIf="productType.invalid && (productType.dirty || productType.touched)" class="error">
+                                <div *ngIf="productType.errors.required">
+                                    This is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productPrice">Product Price</label>
+                            <input required type="number" class="form-control" [(ngModel)]="productMenu.productPrice"
+                                id="productPrice" #productPrice="ngModel" name="productPrice" placeholder="Product Type French Name">
+                            <div *ngIf="productPrice.invalid && (productPrice.dirty || productPrice.touched)" class="error">
+                                <div *ngIf="productPrice.errors.required">
+                                    This is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productTypeFrenchName">Status</label>
+                            <div>
+                                <p-radioButton name="groupname" value="1" [(ngModel)]="productMenu.activeStatus" label="Active"></p-radioButton>
+                                &nbsp;&nbsp;&nbsp;
+                                <p-radioButton name="groupname" value="0" [(ngModel)]="productMenu.activeStatus" label="In Active"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-danger" (click)="backButton()">Cancel</button>
+            </div>
+        </form>
     </div>
 </section>

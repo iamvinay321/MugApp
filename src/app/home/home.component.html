@@ -52,7 +52,7 @@
   </div>
   <div class="section1">
     <div id="languages">
-      <a *ngFor="let locale of locales" [href]="'/' + locale.code + currentUrl"><span>{{ locale.text }}</span></a>
+      <a *ngFor="let locale of locales" [href]="'/' + locale.code +'/' + currentUrl"><span>{{ locale.text }}</span></a>
     </div>
     <div class="blackscreen">
     </div>

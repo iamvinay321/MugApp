@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
-
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-product-type',
   templateUrl: './product-type.component.html',
@@ -25,7 +25,7 @@ export class ProductTypeComponent implements OnInit {
   isEdit = false;
   isNew = true;
 
-  constructor(private confirmationService: ConfirmationService, public api: ApiService) { }
+  constructor(private messageService: MessageService, private confirmationService: ConfirmationService, public api: ApiService) { }
 
   async ngOnInit() {
     this.currentParam = {
@@ -52,7 +52,7 @@ export class ProductTypeComponent implements OnInit {
       console.log(this.totalRows);
     } else {
       this.productTypes = [];
-      //this.messageService.add({ severity: value.type.toLowerCase(), summary: value.type, detail: value.message });
+      this.messageService.add({ severity: value.type.toLowerCase(), summary: value.type, detail: value.message });
     }
   }
 
@@ -95,7 +95,7 @@ export class ProductTypeComponent implements OnInit {
         englishCaption: ""
       })
     } else {
-
+      this.messageService.add({ severity: result.type.toLowerCase(), summary: result.type, detail: result.message });
     }
   }
 
@@ -107,14 +107,20 @@ export class ProductTypeComponent implements OnInit {
     if (this.isNew == true) {
       const result: any = await this.api.createProductType(this.productType);
       if (result.status == 200) {
+        this.messageService.add({ severity: result.type.toLowerCase(), summary: result.type, detail: result.message });
         await this.getPageData(this.currentParam);
         this.backButton();
+      } else {
+        this.messageService.add({ severity: result.type.toLowerCase(), summary: result.type, detail: result.message });
       }
     } else {
       const result: any = await this.api.updateProductType(this.productType);
       if (result.status == 200) {
+        this.messageService.add({ severity: result.type.toLowerCase(), summary: result.type, detail: result.message });
         await this.getPageData(this.currentParam);
         this.backButton();
+      } else {
+        this.messageService.add({ severity: result.type.toLowerCase(), summary: result.type, detail: result.message });
       }
     }
   }
