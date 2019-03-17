@@ -234,6 +234,14 @@
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="productType" datatype="html">
+        <source>Product Type </source>
+        <target>Produit Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/admin/container/container.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

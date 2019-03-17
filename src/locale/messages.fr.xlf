@@ -102,6 +102,14 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="productType" datatype="html">
+        <source>Product Type </source>
+        <target>Produit Type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/admin/container/container.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="navigationMenu" datatype="html">
         <source>Navigation Manu </source>
         <target>le menu de navigation</target>

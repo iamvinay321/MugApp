@@ -1,0 +1,139 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<section class="content-header">
+    <h1 i18n="@@productMenu">
+        Product Type
+    </h1>
+    <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> <span i18n="@@home">Home</span></a></li>
+        <li><a class="active" i18n="@@productType">Product Type</a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box" *ngIf="isEdit == false">
+        <div class="box-header with-border">
+            <h3 class="box-title" i18n="@@productType">Product Type</h3>
+            <div class="pull-right box-tools">
+                <button class="btn btn-info btn-sm" (click)="addButton()"><i class="fa fa-plus"></i> Add </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <app-grid [dataset]=productTypes [rows]=totalRows (handler)="handleGridEvent($event)" [searchText]="'Search Product Type Name'">
+                <app-gridcolumn [width]="'35%'" [value]="'productTypeEnglishName'" [header]="'Product Type English Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'35%'" [value]="'productTypeFrenchName'" [header]="'Product Type French Name'"
+                    [sorting]="false" [type]="'text'"></app-gridcolumn>
+                <app-gridcolumn [width]="'30%'" [value]="action" [header]="'Action'" [sorting]="false" [type]="'template'">
+                    <ng-template #action let-col="col" let-row="row">
+                        <button class="btn btn-info btn-sm" (click)="editProduct(row)"><i class="fa fa-pencil"></i></button>&nbsp;
+                        <button class="btn btn-info btn-sm" (click)="deleteProduct(row)"><i class="fa fa-trash"></i></button>
+                    </ng-template>
+                </app-gridcolumn>
+            </app-grid>
+        </div>
+
+    </div>
+    <div class="box" *ngIf="isEdit == true">
+
+        <div class="box-header with-border">
+            <h3 class="box-title" i18n="@@productType">Add Product Type</h3>
+            <div class="pull-right box-tools">
+                <button class="btn btn-info btn-sm" (click)="backButton()"><i class="fa fa-back"></i> Back </button>
+            </div>
+        </div>
+        <form name="form" (ngSubmit)="f.form.valid && addProduct()" #f="ngForm" novalidate>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productTypeEnglishName">Product Type English Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="productType.productTypeEnglishName"
+                                required minlength="2" id="productTypeEnglishName" name="productTypeEnglishName"
+                                placeholder="Product Type English Name" #productTypeEnglishName="ngModel">
+                            <div *ngIf="productTypeEnglishName.invalid && (productTypeEnglishName.dirty || productTypeEnglishName.touched)"
+                                class="error">
+                                <div *ngIf="productTypeEnglishName.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productTypeEnglishName.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productTypeFrenchName">Product Type French Name</label>
+                            <input required minlength="2" type="text" class="form-control" [(ngModel)]="productType.productTypeFrenchName"
+                                id="productTypeFrenchName" #productTypeFrenchName="ngModel" name="productTypeFrenchName"
+                                placeholder="Product Type French Name">
+                            <div *ngIf="productTypeFrenchName.invalid && (productTypeFrenchName.dirty || productTypeFrenchName.touched)"
+                                class="error">
+                                <div *ngIf="productTypeFrenchName.errors.required">
+                                    This is required.
+                                </div>
+                                <div *ngIf="productTypeFrenchName.errors.minlength">
+                                    Value must be at least 2 characters long.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fileUpload">Image</label>
+                            <input type="file" id="fileUpload" (change)="onFileChanged($event)">
+                        </div>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    Image
+                                </th>
+                                <th>
+                                    Caption English
+                                </th>
+                                <th>
+                                    Caption French
+                                </th>
+                                <td>
+                                    Action
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of productType.productImages;let i= index">
+                                <td>
+                                    <img [src]="baseUrl+item.imgUrl" style="width: 70px;height: 70px;">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="captionEnglishName{{i}}" name="captionEnglishName{{i}}"
+                                        [(ngModel)]="item.englishCaption" placeholder="Caption English">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="captionFrenchName{{i}}" name="captionFrenchName{{i}}"
+                                        [(ngModel)]="item.frenchCaption" placeholder="Caption French">
+                                </td>
+                                <td>
+                                    <button (click)="removeImage(i)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="productTypeFrenchName">Status</label>
+                            <div>
+                                <p-radioButton name="groupname" value="1" [(ngModel)]="productType.activeStatus" label="Active"></p-radioButton>
+                                &nbsp;&nbsp;&nbsp;
+                                <p-radioButton name="groupname" value="0" [(ngModel)]="productType.activeStatus" label="In Active"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </div>
+        </form>
+    </div>
+</section>

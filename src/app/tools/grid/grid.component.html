@@ -1,0 +1,100 @@
+<div class="t-wrapper">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="col-md-2 col-sm-6 col-xs-12 float-left">
+        <div class="form-group row">
+          <select [(ngModel)]="size" (change)="changePageSize()" class="form-control form-control-sm">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-xs-12 float-right"></div>
+      <div class="col-md-6 col-sm-6 col-xs-12 float-right">
+        <div class="form-group row">
+          <div class="input-group input-group-sm">
+            <input class="form-control" (keyup)="search($event)" [(ngModel)]="keyword" id="input1-group2" name="input1-group2"
+              [placeholder]="searchText" type="text">
+            <span class="input-group-addon">
+              <i class="fa fa-search" (click)="handleEvent()"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-outline">
+    <thead>
+      <tr class="table-active">
+        <th *ngFor="let column of columns" [width]="column.width" [style.width]="column.width">
+          <span *ngIf="!column.sorting">{{column.header}}</span>
+          <span *ngIf="column.sorting && !(sortColumn == column.value)" style="cursor:pointer;" (click)="onSort(column.value, 1)">
+            {{column.header}}
+            <i class="fa fa-fw fa-sort"></i>
+          </span>
+          <span *ngIf="column.sorting && sortColumn == column.value && sortDirection == -1" style="cursor:pointer;"
+            (click)="onSort(column.value, 1)">
+            {{column.header}}
+            <i class="fa fa-fw fa-sort-desc"></i>
+          </span>
+          <span *ngIf="column.sorting && sortColumn == column.value && sortDirection == 1" style="cursor:pointer;"
+            (click)="onSort(column.value, -1)">
+            {{column.header}}
+            <i class="fa fa-fw fa-sort-asc"></i>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngIf="dataset.length == 0">
+      <tr>
+        <td class="no-record-found" colspan="100%">
+          <h4>No Record Found </h4>
+
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="dataset.length != 0">
+      <tr *ngFor="let i = index;let row of dataset">
+        <td *ngFor="let column of columns;" [width]="column.width" [style.width]="column.width">
+          <div *ngIf="column.type=='text'">
+            <div *ngIf="row[column.value] != '' || row[column.value] != null || row[column.value] != 'null' || row[column.value] != 'undefined' || row[column.value] != undefined">
+              {{getValue(row,column.value)}}</div>
+            <div *ngIf="row[column.value] == '' || row[column.value] == null || row[column.value] == 'null' || row[column.value] == 'undefined' || row[column.value] == undefined">
+            </div>
+          </div>
+          <div *ngIf="column.type=='image'">
+            <img [src]="viewImg(row[column.value])" [ngClass]="column.imgstyleclass">
+          </div>
+          <div class="template" *ngIf="column.type=='template'">
+            <ng-container *ngTemplateOutlet="column.value; context: { col: column, row: row }"></ng-container>
+          </div>
+          <div *ngIf="column.type=='date'">
+            {{getValue(row,column.value) | date:'dd-MMM-yy'}}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="pagination pagination-sm float-right">
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(1)">First</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="setPage(pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</div>

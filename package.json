@@ -15,7 +15,7 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "build:i18n-ssr": "npm run build:client-and-server-bundles-i18n && npm run compile:server ",
     "compile:server": "tsc -p server.tsconfig.json",
-    "serve:ssr": "node dist/server"
+    "serve:ssr": "pm2 start dist/server"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +51,7 @@
     "rxjs": "~6.3.3",
     "scrollmagic": "^2.0.6",
     "tslib": "^1.9.0",
+    "underscore": "^1.9.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

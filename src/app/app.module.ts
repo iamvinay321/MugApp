@@ -28,6 +28,11 @@ import { ContactComponent } from './admin/contact/contact.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { GridComponent } from './tools/grid/grid.component';
+import { GridcolumnComponent } from './tools/gridcolumn/gridcolumn.component';
+import { ProductTypeComponent } from './admin/product-type/product-type.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/', '.json');
 }
@@ -37,6 +42,7 @@ const route: any = [
   {
     path: 'admin', component: ContainerComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'producttype', component: ProductTypeComponent },
       { path: 'product', component: ProductMenuComponent },
       { path: 'navigation', component: NavigationMenuComponent },
       { path: 'content', component: ContentPagesComponent },
@@ -79,7 +85,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     NavigationMenuComponent,
     ContentPagesComponent,
     ContactComponent,
-
+    GridComponent,
+    GridcolumnComponent,
+    ProductTypeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'brief-ammos' }),
@@ -94,7 +102,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     HttpClientModule,
     MatListModule,
     NgxPageScrollModule,
+    RadioButtonModule,
     NgxPageScrollCoreModule,
+    ConfirmDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
