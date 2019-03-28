@@ -3,7 +3,7 @@
 
 var WPMLLanguageSwitcherDropdown = (function() {
 	"use strict";
-
+alert('hello')
 	var toggleSelector = '.js-wpml-ls-legacy-dropdown a.js-wpml-ls-item-toggle';
 
 	var preventDefault = function(e) {

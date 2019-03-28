@@ -19,10 +19,27 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    loadPage()
+    
+
   }
 
   ngOnInit() {
+  
+    $.getScript('./assets/bootstrap/js/bootstrap.min.js');
+    $.getScript('./assets/plugin/iCheck/icheck.min.js');
+$.getScript('/assets/js/script.js');
+$.getScript('/assets/js/prefixfree.min.js');
+$.getScript('/assets/js/modernizr.custom.js');
+$.getScript('/assets/js/jquery-migrate.min.js');
+$.getScript('/assets/js/responsiveslides.js');
+$.getScript('/assets/js/jquery.parallax.js');
+$.getScript('/assets/js/ScrollMagic.js');
+$.getScript('/assets/js/debug.addIndicators.js');
+$.getScript('/assets/js/animation.gsap.js');
+$.getScript('/assets/js/jquery.mousewheel.js');
+$.getScript('/assets/js/lethargy.js');
+$.getScript('/assets/js/pace.min.js');
+$.getScript('/assets/js/main.min.js');
     this.locales = locales;
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))

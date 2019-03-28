@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   locales = [];
   currentUrl = "";
 
@@ -22,6 +22,22 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
+     
+    $.getScript('./assets/bootstrap/js/bootstrap.min.js');
+    $.getScript('./assets/plugin/iCheck/icheck.min.js');
+$.getScript('/assets/js/script.js');
+$.getScript('/assets/js/prefixfree.min.js');
+$.getScript('/assets/js/modernizr.custom.js');
+$.getScript('/assets/js/jquery-migrate.min.js');
+$.getScript('/assets/js/responsiveslides.js');
+$.getScript('/assets/js/jquery.parallax.js');
+$.getScript('/assets/js/ScrollMagic.js');
+$.getScript('/assets/js/debug.addIndicators.js');
+$.getScript('/assets/js/animation.gsap.js');
+$.getScript('/assets/js/jquery.mousewheel.js');
+$.getScript('/assets/js/lethargy.js');
+$.getScript('/assets/js/pace.min.js');
+$.getScript('/assets/js/main.min.js');
     let data: any = this.router;
     console.log();
     this.translateService.addLangs(['en', 'fr']);
